@@ -2,9 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:TooMuchToDoPrismApp"
+             xmlns:converters="clr-namespace:TooMuchToDoPrismApp.Converters"
              x:Class="TooMuchToDoPrismApp.Views.MainPage"
              Title="{Binding Title}">
 
+    <ContentPage.Resources>
+        <converters:StatusColorConverter
+            x:Key="statusColorConverter" />
+    </ContentPage.Resources>
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddItem}"/>
     </ContentPage.ToolbarItems>
@@ -29,7 +35,8 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             
-                            <BoxView Grid.RowSpan="2" />
+                            <BoxView Grid.RowSpan="2"
+                                     BackgroundColor="{Binding Item.Completed, Converter={StaticResource statusColorConverter}}" />
                             
                             <Label Grid.Column="1"
                                    Text="{Binding Item.Title}"
